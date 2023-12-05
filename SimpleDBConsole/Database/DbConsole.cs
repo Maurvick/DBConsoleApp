@@ -4,9 +4,10 @@ namespace EntityFramework.Database
 {
     class DbConsole
     {
+        Application app = new Application();
+
         public void ReadUserCommands()
         {
-            string userInput;
             bool isRunning = true;
 
             Console.WriteLine("- Available commands: " + 
@@ -15,7 +16,7 @@ namespace EntityFramework.Database
             while (isRunning)
             {
                 Console.Write("> ");
-                userInput = Console.ReadLine();
+                string userInput = Console.ReadLine() ?? "";
                 
                 switch (userInput.ToLower())
                 {
@@ -39,7 +40,7 @@ namespace EntityFramework.Database
                         break;
                     case "delete contact":
                         Console.Write("Contact id: ");
-                        userInput = Console.ReadLine();
+                        userInput = Console.ReadLine() ?? "";
                         ContactManager.DeleteContact(int.Parse(userInput));
                         break;
                     case "exit":
@@ -54,25 +55,25 @@ namespace EntityFramework.Database
 
         private void ShowCurrentDb()
         {
-            Console.WriteLine($"DB: {Application.dbName}, Host: {Application.dbServer}, " +
-                $"User: {Application.dbUser}, Password: {Application.dbPassword}");
+            Console.WriteLine($"DB: {app.Name}, Host: {app.Host}, " +
+                $"User: {app.User}, Password: {app.Password}");
         }
 
         private void ChangeDbSettings()
         {
             Console.Write("DB name: ");
-            string name = Console.ReadLine();
+            string name = Console.ReadLine() ?? "";
             Console.Write("DB host: ");
-            string host = Console.ReadLine();
+            string host = Console.ReadLine() ?? "";
             Console.Write("DB user: ");
-            string user = Console.ReadLine();
+            string user = Console.ReadLine() ?? "";
             Console.Write("DB password: ");
-            string password = Console.ReadLine();
+            string password = Console.ReadLine() ?? "";
 
-            Application.dbName = name;
-            Application.dbServer = host;
-            Application.dbUser = user;
-            Application.dbPassword = password;
+            app.Name = name;
+            app.Host = host;
+            app.User = user;
+            app.Password = password;
 
             Console.WriteLine("- DB settings changed");
         }
@@ -80,24 +81,24 @@ namespace EntityFramework.Database
         private void ChangeDb()
         {
             Console.Write("Enter db name: ");
-            string db = Console.ReadLine();
-            Application.dbName = db;
+            string db = Console.ReadLine() ?? "";
+            app.Name = db;
             Console.WriteLine($"- Using database: {db}");
         }
 
         private void ReadUserArguments(string type)
-        { 
+        {
             Console.Write("Id: ");
-            string id = Console.ReadLine();
+            string id = Console.ReadLine() ?? "";
 
             Console.Write("Name: ");
-            string name = Console.ReadLine();
+            string name = Console.ReadLine() ?? "";
 
             Console.Write("PhoneNumber: ");
-            string description = Console.ReadLine();
+            string description = Console.ReadLine() ?? "";
 
             Console.Write("Email: ");
-            string address = Console.ReadLine();
+            string address = Console.ReadLine() ?? "";
 
             // Додавання контакту
             Contact newContact = new Contact
