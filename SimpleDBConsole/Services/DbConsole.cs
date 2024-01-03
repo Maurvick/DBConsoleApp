@@ -1,6 +1,6 @@
 ﻿using EntityFramework.Models;
 
-namespace EntityFramework.Database
+namespace EntityFramework.Services
 {
     class DbConsole
     {
@@ -17,9 +17,29 @@ namespace EntityFramework.Database
             {
                 Console.Write("> ");
                 string userInput = Console.ReadLine() ?? "";
-                
-                switch (userInput.ToLower())
+
+                string[] commandArgs = userInput.Split(' ');
+                string command = commandArgs[0].ToLower();
+
+                if (string.IsNullOrWhiteSpace(userInput))
                 {
+                    Console.WriteLine("Please enter a command.");
+                    continue;
+                }
+
+                switch (command)
+                {
+                    case "greet":
+                        if (commandArgs.Length > 1)
+                        {
+                            string name = commandArgs[1];
+                            Greet(name);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Please provide a name to greet.");
+                        }
+                        break;
                     case "change db":
                         ChangeDb();
                         break;
@@ -32,11 +52,16 @@ namespace EntityFramework.Database
                     case "show contacts":
                         ContactManager.ShowContacts();
                         break;
-                    case "add contact":
-                        ReadUserArguments("add");
-                        break;
-                    case "update contact":
-                        ReadUserArguments("update");
+                    case "contact":
+                        if (commandArgs.Length > 1)
+                        {
+                            string arg = commandArgs[1];
+                            ReadUserArguments(arg);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Please provide a add or update.");
+                        }
                         break;
                     case "delete contact":
                         Console.Write("Contact id: ");
@@ -51,6 +76,19 @@ namespace EntityFramework.Database
                         break;
                 }
             }
+        }
+
+        private static void ShowHelp()
+        {
+            Console.WriteLine("Available commands:");
+            Console.WriteLine("  help        - Show available commands");
+            Console.WriteLine("  greet <name>- Greet the specified name");
+            Console.WriteLine("  exit        - Exit the CommandHandler");
+        }
+
+        private static void Greet(string name)
+        {
+            Console.WriteLine($"Hello, {name}!");
         }
 
         private void ShowCurrentDb()

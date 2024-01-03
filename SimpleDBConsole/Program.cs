@@ -1,4 +1,4 @@
-﻿using EntityFramework.Database;
+﻿using EntityFramework.Services;
 
 namespace EntityFramework
 {
@@ -6,7 +6,7 @@ namespace EntityFramework
     {
         public static void Main(string[] args)
         {
-            DbConsole console = new DbConsole();
+            DbConsole console = new ();
 
             console.ReadUserCommands();
         }

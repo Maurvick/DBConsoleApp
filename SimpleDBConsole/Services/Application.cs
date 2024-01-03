@@ -1,7 +1,7 @@
 ﻿using EntityFramework.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace EntityFramework.Database
+namespace EntityFramework.Services
 {
     // Create connection class
     class Application : DbContext

@@ -1,6 +1,6 @@
 ﻿using EntityFramework.Models;
 
-namespace EntityFramework.Database
+namespace EntityFramework.Services
 {
     class ContactManager
     {
